@@ -10,8 +10,6 @@ import com.andiEngine.nodes.Node;
 import com.andiEngine.nodes.Scene;
 import com.andiEngine.nodes.SpriteNode;
 import com.andiEngine.nodes.TextNode;
-import com.andiEngine.tests.objects.Link;
-import com.andiEngine.tests.objects.Yoshi;
 import com.example.surfacetest.R;
 
 public class MyFirstScene extends Scene {
@@ -21,8 +19,6 @@ public class MyFirstScene extends Scene {
 	//-------------------------------------
 	private AnimatedSpriteNode mainCharacter;
 	private Point touchPosition = null;
-	private Yoshi yoshi;
-	private Link link;
 
 	//-------------------------------------
 	// Public methods
@@ -39,18 +35,18 @@ public class MyFirstScene extends Scene {
 		gameLayer.addChild(background);
 
 		// Add main character
-		yoshi = new Yoshi(c);
-		yoshi.sprite.position.x = 30;
-		yoshi.sprite.position.y = 100;
-		gameLayer.addChild(yoshi.sprite);
-		
-		link = new Link(c);
-		link.sprite.position.x = 60;
-		link.sprite.position.y = 100;
-		gameLayer.addChild(link.sprite);
-		
-		//mainCharacter= yoshi.sprite;
-		mainCharacter= link.sprite;
+		mainCharacter = new AnimatedSpriteNode(R.drawable.yoshi, c, 40, 40);
+		mainCharacter.addAnimation("down",  new Point[] {new Point(0,0),new Point(0,1),new Point(0,2),new Point(0,3),new Point(0,4)});
+		mainCharacter.addAnimation("right", new Point[] {new Point(1,0),new Point(1,1),new Point(1,2),new Point(1,3),new Point(1,4)});
+		mainCharacter.addAnimation("up",  	new Point[] {new Point(2,0),new Point(2,1),new Point(2,2),new Point(2,3),new Point(2,4)});
+		mainCharacter.addAnimation("left",  new Point[] {new Point(3,0),new Point(3,1),new Point(3,2),new Point(3,3),new Point(3,4)});
+		mainCharacter.setAnimation("down");
+		mainCharacter.setAnimationSpeed(0.2f);
+		mainCharacter.position.x = 30;
+		mainCharacter.position.y = 100;
+		mainCharacter.anchor = new Point(0.5f, 0.5f);
+		mainCharacter.scale = new Point(1.5f,1.5f);
+		gameLayer.addChild(mainCharacter);
 		
 		// Create the text
 		TextNode name = new TextNode();
