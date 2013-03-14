@@ -41,7 +41,12 @@ public class AndiEngineView extends SurfaceView implements SurfaceHolder.Callbac
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
     	destroying = true;
-    	drawThread.interrupt();
+    	try {
+			drawThread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	drawThread = null;
     }
     

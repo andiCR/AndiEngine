@@ -17,7 +17,8 @@ public class AnimatedSpriteNode extends SpriteNode {
 	//-------------------------------------
 	// Variables
 	//-------------------------------------
-	private Rect imageSize;
+	private Rect srcRect;
+	private Rect dstRect;
 	private HashMap<String, List<Point>> animations;
 	private List<Point> currentAnimation;
 	private String currentAnimationName;
@@ -30,7 +31,8 @@ public class AnimatedSpriteNode extends SpriteNode {
 	//-------------------------------------
 	public AnimatedSpriteNode(int resource, Context c, int imageWidth, int imageHeight) {
 		super(resource, c);
-		imageSize = new Rect(0,0, imageWidth, imageHeight);
+		dstRect = new Rect(0,0, imageWidth, imageHeight);
+		srcRect = new Rect(0,0, imageWidth, imageHeight);
 		animationSpeed = 1;
 		animations = new HashMap<String, List<Point>>();
 	}
@@ -48,6 +50,8 @@ public class AnimatedSpriteNode extends SpriteNode {
 			currentFrame = 0;
 			currentAnimation = animations.get(animationName);
 			currentAnimationName = animationName;
+			
+			refreshFrame();
 		}
 	}
 	
@@ -61,37 +65,44 @@ public class AnimatedSpriteNode extends SpriteNode {
 	
 	@Override
 	public void update() {
-		if (!animationPaused) {
+		if (!animationPaused && currentAnimation != null) {
+			int lastFrame = (int)(currentFrame);
 			currentFrame += animationSpeed;
 			if (currentFrame >= currentAnimation.size())
 				currentFrame = 0;
+			
+			// Did we change frames?
+			if (lastFrame != (int)currentFrame) {
+				refreshFrame();
+			}
 		}
 	}
 	
+	private void refreshFrame() {
+		Point index = currentAnimation.get((int)currentFrame);
+		int w = dstRect.width();
+		int h = dstRect.height();
+		srcRect.left = (int)index.y * w;
+		srcRect.right = srcRect.left + w;
+		srcRect.top = (int)index.x * h;
+		srcRect.bottom = srcRect.top + h;
+
+		Log.d("Andi", "x:" + srcRect.left + ",y:" + srcRect.top + ",w:" + srcRect.width() + ",h:"+srcRect.height());
+	}
+
 	@Override
 	public void draw(Canvas c) {
-		if (currentAnimation != null) {
-			Point index = currentAnimation.get((int)currentFrame);
-			
-			Rect src =  new Rect((int)index.y*imageSize.width(),
-								 (int)index.x*imageSize.height(),
-								 (int)index.y*imageSize.width() +imageSize.width(),
-								 (int)index.x*imageSize.height()+imageSize.height());
-			//Log.d("Andi", "x:" + src.left + ",y:" + src.top + ",w:" + src.width() + ",h:"+src.height());
-			c.translate(-anchor.x * imageSize.width(), -anchor.y * imageSize.height());
-			c.drawBitmap(bitmap, src, imageSize, null);
-			c.translate(anchor.x * imageSize.width(), anchor.y * imageSize.height());
-		} else {
-			Log.d("Andi","currentanimation null");
-		}
+		c.translate(-anchor.x * dstRect.width(), -anchor.y * dstRect.height());
+		c.drawBitmap(bitmap, srcRect, dstRect, null);
+		c.translate(anchor.x * dstRect.width(), anchor.y * dstRect.height());
 	}
 	@Override
 	public int getWidth() {
-		return imageSize.width();
+		return dstRect.width();
 	}
 	@Override
 	public int getHeight() {
-		return imageSize.height();
+		return dstRect.height();
 	}
 
 }

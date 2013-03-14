@@ -35,7 +35,7 @@ public class MyFirstScene extends Scene {
 		gameLayer.addChild(background);
 
 		// Add main character
-		mainCharacter = new AnimatedSpriteNode(R.drawable.yoshi, c, 80, 80);
+		mainCharacter = new AnimatedSpriteNode(R.drawable.yoshi, c, 40, 40);
 		mainCharacter.addAnimation("down",  new Point[] {new Point(0,0),new Point(0,1),new Point(0,2),new Point(0,3),new Point(0,4)});
 		mainCharacter.addAnimation("right", new Point[] {new Point(1,0),new Point(1,1),new Point(1,2),new Point(1,3),new Point(1,4)});
 		mainCharacter.addAnimation("up",  	new Point[] {new Point(2,0),new Point(2,1),new Point(2,2),new Point(2,3),new Point(2,4)});
