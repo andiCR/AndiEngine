@@ -2,6 +2,8 @@ package com.andiEngine.ai.innerNodes;
 
 import com.andiEngine.ai.BTNode;
 
+// Loops are like sequences but they loop around (hah, who would have thought!) when reaching their
+// last child during their traversal instead of returning to their parent node like sequence node do.
 public class LoopSelectorNode extends SelectorNode {
 
 	@Override

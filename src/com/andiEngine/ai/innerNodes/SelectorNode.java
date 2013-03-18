@@ -20,13 +20,14 @@ public abstract class SelectorNode extends BTNode {
 	}
 	
 	@Override
-	public int visit() {
+	protected int getVisitResult() {
 		// If there's a child running
 		if (_runningChild != null) {
 			int state = _runningChild.visit();
 			
 			if (state == STATE_SUCCESS) {
 				_runningChild = selectNextChild();
+				visit();
 			}
 		}
 		else {
@@ -38,6 +39,18 @@ public abstract class SelectorNode extends BTNode {
 			return STATE_SUCCESS;
 		
 		return _runningChild.getState();
+	}
+	
+	@Override
+	public void reset() {
+		super.reset();
+		for (BTNode child: _children) {
+			child.reset();
+		}
+		
+		if (_state == STATE_READY) {
+			_runningChild = null;
+		}
 	}
 
 }

@@ -2,6 +2,10 @@ package com.andiEngine.ai.innerNodes;
 
 import com.andiEngine.ai.BTNode;
 
+// Sequence selectors run one child to finish after the other. If one or multiple
+// fail the whole sequence fails, too. Without a reset or without finishing the last 
+// child node a sequence stores the last running child to immediately return to it on 
+// the next update.
 public class SequenceSelectorNode extends SelectorNode {
 
 	@Override
