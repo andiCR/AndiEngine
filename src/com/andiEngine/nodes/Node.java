@@ -15,6 +15,7 @@ public class Node {
 	public float rotation;
 	public Point scale;
 	private ArrayList<Node> children;
+	public String name;
 
 	//-------------------------------------
 	// Public methods
@@ -54,6 +55,13 @@ public class Node {
 	
 	public void removeChild(Node node) {
 		children.remove(node);
+	}
+	public Node findChildByName(String name) {
+		for (Node child: children) {
+			if (child.name.equals(name))
+				return child;
+		}
+		return null;
 	}
 	//-------------------------------------
 	// Abstract methods. OVERRIDE THESE
