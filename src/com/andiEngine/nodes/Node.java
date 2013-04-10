@@ -15,6 +15,7 @@ public class Node {
 	public float rotation;
 	public Point scale;
 	private ArrayList<Node> children;
+	public String name;
 
 	//-------------------------------------
 	// Public methods
@@ -33,6 +34,8 @@ public class Node {
 		}
 	}
 	public void drawLoop(Canvas c) {
+		c.save();
+		
 		c.translate(position.x, position.y);
 		c.rotate(rotation);
 		c.scale(scale.x, scale.y);
@@ -43,9 +46,7 @@ public class Node {
 			n.drawLoop(c);
 		}
 
-		c.scale(1/scale.x, 1/scale.y);
-		c.rotate(-rotation);
-		c.translate(-position.x, -position.y);
+		c.restore();
 	}
 	
 	public void addChild(Node node) {
@@ -54,6 +55,14 @@ public class Node {
 	
 	public void removeChild(Node node) {
 		children.remove(node);
+	}
+	
+	public Node findChildByName(String name) {
+		for (Node child: children) {
+			if (child.name.equals(name))
+				return child;
+		}
+		return null;
 	}
 	//-------------------------------------
 	// Abstract methods. OVERRIDE THESE

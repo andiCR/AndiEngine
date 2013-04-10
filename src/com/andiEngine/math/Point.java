@@ -57,6 +57,10 @@ public class Point extends PointF {
 		y /= length;
 	}
 	
+	public float distance(Point p2) {
+		return subtract(p2, this).length();
+	}
+	
 	@Override
 	public String toString() {
 		return "x: " + x + ". y:" + y;

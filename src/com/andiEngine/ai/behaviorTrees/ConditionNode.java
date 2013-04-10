@@ -1,8 +1,12 @@
-package com.andiEngine.ai;
+package com.andiEngine.ai.behaviorTrees;
 
 public abstract class ConditionNode extends BTNode {
 
 	public abstract boolean examineCondition();
+	
+	public ConditionNode(String name) {
+		super(name);
+	}
 	
 	@Override
 	protected int getVisitResult() {

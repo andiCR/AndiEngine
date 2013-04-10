@@ -1,6 +1,6 @@
-package com.andiEngine.ai.innerNodes;
+package com.andiEngine.ai.behaviorTrees.innerNodes;
 
-import com.andiEngine.ai.BTNode;
+import com.andiEngine.ai.behaviorTrees.BTNode;
 
 // Sequence selectors run one child to finish after the other. If one or multiple
 // fail the whole sequence fails, too. Without a reset or without finishing the last 

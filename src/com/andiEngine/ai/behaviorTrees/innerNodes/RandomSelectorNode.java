@@ -1,8 +1,8 @@
-package com.andiEngine.ai.innerNodes;
+package com.andiEngine.ai.behaviorTrees.innerNodes;
 
 import java.util.Random;
 
-import com.andiEngine.ai.BTNode;
+import com.andiEngine.ai.behaviorTrees.BTNode;
 
 // Random selectors randomly (hah again) select which of their child nodes to visit.
 // A running node is visited again until it finishes.

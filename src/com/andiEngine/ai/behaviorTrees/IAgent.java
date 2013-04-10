@@ -1,4 +1,4 @@
-package com.andiEngine.ai;
+package com.andiEngine.ai.behaviorTrees;
 
 public interface IAgent {
 	void init();

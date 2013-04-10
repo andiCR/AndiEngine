@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.MotionEvent;
 
+import com.andiEngine.ai.behaviorTrees.AgentManager;
 import com.andiEngine.math.Point;
 import com.andiEngine.nodes.AnimatedSpriteNode;
 import com.andiEngine.nodes.Node;
@@ -19,6 +20,7 @@ public class MyFirstScene extends Scene {
 	//-------------------------------------
 	// Variables
 	//-------------------------------------
+	private AgentManager gameAI;
 	private AnimatedSpriteNode mainCharacter;
 	private Point touchPosition = null;
 	private Yoshi yoshi;
@@ -30,6 +32,8 @@ public class MyFirstScene extends Scene {
 	public MyFirstScene(Context c) {
 		super();
 		
+		gameAI = new AgentManager();
+		
 		// Create game Layer
 		Node gameLayer = new Node();
 		addChild(gameLayer);
@@ -40,15 +44,17 @@ public class MyFirstScene extends Scene {
 
 		// Add main character
 		yoshi = new Yoshi(c);
-		yoshi.sprite.position.x = 30;
-		yoshi.sprite.position.y = 100;
-		gameLayer.addChild(yoshi.sprite);
+		yoshi.getSprite().position.x = 30;
+		yoshi.getSprite().position.y = 100;
+		gameLayer.addChild(yoshi.getSprite());
+		gameAI.addAgent(yoshi);
 		
 		link = new Link(c);
 		link.sprite.position.x = 60;
 		link.sprite.position.y = 100;
 		gameLayer.addChild(link.sprite);
-		
+
+		yoshi.setFoe(link.sprite);
 		//mainCharacter= yoshi.sprite;
 		mainCharacter= link.sprite;
 		
@@ -71,6 +77,8 @@ public class MyFirstScene extends Scene {
 	//-------------------------------------
 	@Override
 	public void update() {
+		gameAI.update();
+		
 		if (touchPosition != null) {
 			Point distance = Point.subtract(touchPosition, mainCharacter.position);
 

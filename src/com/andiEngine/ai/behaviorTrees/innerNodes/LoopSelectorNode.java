@@ -1,6 +1,6 @@
-package com.andiEngine.ai.innerNodes;
+package com.andiEngine.ai.behaviorTrees.innerNodes;
 
-import com.andiEngine.ai.BTNode;
+import com.andiEngine.ai.behaviorTrees.BTNode;
 
 // Loops are like sequences but they loop around (hah, who would have thought!) when reaching their
 // last child during their traversal instead of returning to their parent node like sequence node do.

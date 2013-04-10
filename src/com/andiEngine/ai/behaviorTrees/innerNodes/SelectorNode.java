@@ -1,8 +1,8 @@
-package com.andiEngine.ai.innerNodes;
+package com.andiEngine.ai.behaviorTrees.innerNodes;
 
 import java.util.ArrayList;
 
-import com.andiEngine.ai.BTNode;
+import com.andiEngine.ai.behaviorTrees.BTNode;
 
 public abstract class SelectorNode extends BTNode {
 	protected ArrayList<BTNode> _children;

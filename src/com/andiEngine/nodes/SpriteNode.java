@@ -40,9 +40,12 @@ public class SpriteNode extends Node {
 	public void draw(Canvas c) {
 		super.draw(c);
 		
+		c.save();
+		
 		c.translate(-anchor.x * bitmap.getWidth(), -anchor.y * bitmap.getHeight());
 		c.drawBitmap(bitmap, 0, 0, null);
-		c.translate(anchor.x * bitmap.getWidth(), anchor.y * bitmap.getHeight());
+
+		c.restore();
 	}
 	
 	public int getWidth() {

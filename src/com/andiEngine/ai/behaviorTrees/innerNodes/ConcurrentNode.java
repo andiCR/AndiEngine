@@ -1,8 +1,8 @@
-package com.andiEngine.ai.innerNodes;
+package com.andiEngine.ai.behaviorTrees.innerNodes;
 
 import java.util.ArrayList;
 
-import com.andiEngine.ai.BTNode;
+import com.andiEngine.ai.behaviorTrees.BTNode;
 
 // Concurrent nodes visit all of their children during each traversal. A pre-specified
 // number of children needs to fail to make the concurrent node fail, too. Instead of 

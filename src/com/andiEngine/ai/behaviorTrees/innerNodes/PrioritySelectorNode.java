@@ -1,8 +1,9 @@
-package com.andiEngine.ai.innerNodes;
+package com.andiEngine.ai.behaviorTrees.innerNodes;
 
 import java.util.Collections;
 import java.util.Comparator;
-import com.andiEngine.ai.BTNode;
+
+import com.andiEngine.ai.behaviorTrees.BTNode;
 
 // On each traversal priority selectors check which child to run in priority order until
 // the first one succeeds or returns that it is running. One option is to call the last 
@@ -10,7 +11,7 @@ import com.andiEngine.ai.BTNode;
 // always restart traversal from the highest priority child and implicitly cancel the last
 // running child behavior if it isnÕt chosen immediately again.
 public class PrioritySelectorNode extends SelectorNode {
-	
+	/*
 	//===============================================
 	// Private Classes
 	//===============================================
@@ -75,7 +76,7 @@ public class PrioritySelectorNode extends SelectorNode {
 		
 		Collections.sort(_children, new CustomComparator());
 	}
-	
+	*/
 	@Override
 	public BTNode selectNextChild() {
 		// Return the first child
@@ -91,5 +92,26 @@ public class PrioritySelectorNode extends SelectorNode {
 		
 		// Get the next child
 		return _children.get(currentIndex + 1);
+	}
+	
+	@Override
+	protected int getVisitResult() {
+		if (_runningChild == null) {
+			if (_children.size() > 0)
+				_runningChild = selectNextChild();
+		}
+		
+		// Visit children until one succeeds
+		int state = STATE_FAILED;
+		while (_runningChild != null) {
+			state = _runningChild.visit();
+			
+			if (state == STATE_FAILED)
+				_runningChild = selectNextChild();
+			else 
+				break;
+		}
+		
+		return state;
 	}
 }
