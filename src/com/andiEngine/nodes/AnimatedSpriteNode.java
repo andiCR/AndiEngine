@@ -86,8 +86,6 @@ public class AnimatedSpriteNode extends SpriteNode {
 		srcRect.right = srcRect.left + w;
 		srcRect.top = (int)index.x * h;
 		srcRect.bottom = srcRect.top + h;
-
-		Log.d("Andi", "x:" + srcRect.left + ",y:" + srcRect.top + ",w:" + srcRect.width() + ",h:"+srcRect.height());
 	}
 
 	@Override
