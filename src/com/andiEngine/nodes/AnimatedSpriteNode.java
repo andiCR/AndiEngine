@@ -90,9 +90,7 @@ public class AnimatedSpriteNode extends SpriteNode {
 
 	@Override
 	public void draw(Canvas c) {
-		c.translate(-anchor.x * dstRect.width(), -anchor.y * dstRect.height());
 		c.drawBitmap(bitmap, srcRect, dstRect, null);
-		c.translate(anchor.x * dstRect.width(), anchor.y * dstRect.height());
 	}
 	@Override
 	public int getWidth() {

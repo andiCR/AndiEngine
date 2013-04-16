@@ -50,7 +50,7 @@ public class MyFirstScene extends Scene {
 		
 		// Create the text
 		TextNode name = new TextNode();
-		name.text = "Andi";
+		name.setText("Andi");
 		name.setColor(Color.WHITE);
 		name.setTextSize(30);
 		name.position.x = 0;

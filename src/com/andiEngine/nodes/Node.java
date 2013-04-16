@@ -15,7 +15,13 @@ public class Node {
 	public float rotation;
 	public Point scale;
 	private ArrayList<Node> children;
-	public String name;
+	public String name = "";
+
+	// Anchor is the point where to draw the sprite from. 
+	// (0, 0) means top left
+	// 0.5, 0.5 means center
+	// 1,1 means bottom right
+	public Point anchor; 
 
 	//-------------------------------------
 	// Public methods
@@ -25,6 +31,7 @@ public class Node {
 		position = new Point(0,0);
 		rotation = 0;
 		children = new ArrayList<Node>();
+		anchor = new Point(0, 0);
 	}
 	public void updateLoop() {
 		update();
@@ -34,19 +41,19 @@ public class Node {
 		}
 	}
 	public void drawLoop(Canvas c) {
+		c.save();
 		c.translate(position.x, position.y);
 		c.rotate(rotation);
 		c.scale(scale.x, scale.y);
-		
+
+		c.translate(-anchor.x * getWidth(), -anchor.y * getHeight());
 		draw(c);
 		for (Node n: children)
 		{
 			n.drawLoop(c);
 		}
 
-		c.scale(1/scale.x, 1/scale.y);
-		c.rotate(-rotation);
-		c.translate(-position.x, -position.y);
+		c.restore();
 	}
 	
 	public void addChild(Node node) {
@@ -63,11 +70,28 @@ public class Node {
 		}
 		return null;
 	}
+	
+	public boolean pointInside(Point p) {
+		float l = position.x -anchor.x * getWidth();
+		float r = l + getWidth();
+		float t = position.y -anchor.y * getHeight();
+		float b = t + getHeight();
+		return (p.x >= l && p.x <= r && p.y >= t && p.y <= b);
+	}
+	
 	//-------------------------------------
 	// Abstract methods. OVERRIDE THESE
 	//-------------------------------------
 	public void draw(Canvas c) {
 	}
 	public void update() {
+	}
+	
+	public int getWidth() {
+		return 0;
+	}
+
+	public int getHeight() {
+		return 0;
 	}
 }
