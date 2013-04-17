@@ -10,7 +10,7 @@ import com.andiEngine.nodes.Node;
 import com.andiEngine.nodes.Scene;
 import com.andiEngine.nodes.SpriteNode;
 import com.andiEngine.nodes.TextNode;
-import com.example.surfacetest.R;
+import com.andiEngine.R;
 
 public class MyFirstScene extends Scene {
 

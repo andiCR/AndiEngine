@@ -10,7 +10,6 @@ import com.andiEngine.math.Point;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
-import android.util.Log;
 
 public class AnimatedSpriteNode extends SpriteNode {
 
@@ -25,6 +24,8 @@ public class AnimatedSpriteNode extends SpriteNode {
 	private float currentFrame;
 	private float animationSpeed;
 	private boolean animationPaused;
+	private int width;
+	private int height;
 
 	//-------------------------------------
 	// Public methods
@@ -35,6 +36,8 @@ public class AnimatedSpriteNode extends SpriteNode {
 		srcRect = new Rect(0,0, imageWidth, imageHeight);
 		animationSpeed = 1;
 		animations = new HashMap<String, List<Point>>();
+		width = imageWidth;
+		height = imageHeight;
 	}
 	
 	public void addAnimation(String animationName, Point[] sprites) {
@@ -80,12 +83,10 @@ public class AnimatedSpriteNode extends SpriteNode {
 	
 	private void refreshFrame() {
 		Point index = currentAnimation.get((int)currentFrame);
-		int w = dstRect.width();
-		int h = dstRect.height();
-		srcRect.left = (int)index.y * w;
-		srcRect.right = srcRect.left + w;
-		srcRect.top = (int)index.x * h;
-		srcRect.bottom = srcRect.top + h;
+		srcRect.left = (int)index.y * width;
+		srcRect.right = srcRect.left + width;
+		srcRect.top = (int)index.x * height;
+		srcRect.bottom = srcRect.top + height;
 	}
 
 	@Override
@@ -94,11 +95,11 @@ public class AnimatedSpriteNode extends SpriteNode {
 	}
 	@Override
 	public int getWidth() {
-		return dstRect.width();
+		return width;
 	}
 	@Override
 	public int getHeight() {
-		return dstRect.height();
+		return height;
 	}
 
 }
