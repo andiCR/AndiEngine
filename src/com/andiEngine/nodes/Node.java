@@ -11,18 +11,18 @@ public class Node {
 	//-------------------------------------
 	// Variables
 	//-------------------------------------
-	public Point position;
-	public float rotation;
-	public Point scale;
+	public Point			position;
+	public float			rotation;
+	public Point			scale;
 	private ArrayList<Node> children;
-	public String name = "";
+	public String			name = "";
+	public boolean 			visible = true;
+	public Point 			anchor; 
 
 	// Anchor is the point where to draw the sprite from. 
 	// (0, 0) means top left
 	// 0.5, 0.5 means center
 	// 1,1 means bottom right
-	public Point anchor; 
-
 	//-------------------------------------
 	// Public methods
 	//-------------------------------------
@@ -50,7 +50,8 @@ public class Node {
 		draw(c);
 		for (Node n: children)
 		{
-			n.drawLoop(c);
+			if (n.visible)
+				n.drawLoop(c);
 		}
 
 		c.restore();

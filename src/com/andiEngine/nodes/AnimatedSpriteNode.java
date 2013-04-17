@@ -50,12 +50,18 @@ public class AnimatedSpriteNode extends SpriteNode {
 	
 	public void setAnimation(String animationName) {
 		if (currentAnimationName != animationName) {
-			currentFrame = 0;
-			currentAnimation = animations.get(animationName);
-			currentAnimationName = animationName;
-			
-			refreshFrame();
+			if (animations.containsKey(animationName)) {
+				currentFrame = 0;
+				currentAnimation = animations.get(animationName);
+				currentAnimationName = animationName;
+				
+				refreshFrame();
+			}
 		}
+	}
+	
+	public boolean containsAnimation(String animationName) {
+		return animations.containsKey(animationName);
 	}
 	
 	public void setAnimationSpeed(float speed) {
